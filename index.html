@@ -10,6 +10,7 @@
     <style>
         :root {
             --primary-color: #ff4d6d;
+            --secondary-color: #ff758f;
             --bg-color: #fff0f3;
         }
 
@@ -18,72 +19,97 @@
             font-family: 'Montserrat', sans-serif;
             background-color: var(--bg-color);
             color: #333;
-            text-align: center;
+            overflow-x: hidden;
         }
 
         header {
-            padding: 100px 20px;
-            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('tua-foto-sfocata.jpg');
-            background-size: cover;
+            padding: 80px 20px;
+            text-align: center;
+            background: white;
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 4rem;
+            font-size: 3.5rem;
             color: var(--primary-color);
-            margin-bottom: 10px;
+            margin: 0;
         }
 
+        /* Sezione Numeri */
         .stats-container {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
             flex-wrap: wrap;
-            padding: 50px 20px;
+            padding: 40px 20px;
         }
 
         .stat-card {
             background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            min-width: 150px;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.1);
+            min-width: 140px;
+            text-align: center;
+            transition: transform 0.3s ease;
         }
+
+        .stat-card:hover { transform: translateY(-5px); }
 
         .stat-card h2 {
             color: var(--primary-color);
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin: 0;
         }
 
+        /* Timeline */
+        .timeline {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: left;
+            border-left: 2px solid var(--primary-color);
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .timeline-item::before {
+            content: '❤️';
+            position: absolute;
+            left: -12px;
+            background: var(--bg-color);
+        }
+
+        /* Bottone Magico */
+        .btn-container { text-align: center; padding: 40px; }
+        
         .btn-surprise {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
+            padding: 18px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.3s ease;
-            margin-top: 40px;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            transition: all 0.3s ease;
         }
 
-        .btn-surprise:hover {
-            transform: scale(1.1);
-        }
+        .btn-surprise:active { transform: scale(0.95); }
 
-        footer {
-            padding: 50px;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
+        footer { text-align: center; padding: 40px; opacity: 0.6; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Ciao [Nome della tua ragazza] ❤️</h1>
-        <p>Ho scritto qualche riga di codice per dirti che...</p>
+        <h1>Ciao Piccola ❤️</h1>
+        <p>Sei il bug più bello del mio sistema operativo.</p>
     </header>
 
     <section class="stats-container">
@@ -93,47 +119,70 @@
         </div>
         <div class="stat-card">
             <h2>∞</h2>
-            <p>Caffè Presi</p>
+            <p>Caffè & Baci</p>
         </div>
         <div class="stat-card">
-            <h2>999k+</h2>
-            <p>Messaggi Inviati</p>
+            <h2>1</h2>
+            <p>Unico Grande Amore</p>
         </div>
     </section>
 
-    <button class="btn-surprise" onclick="lanciaCuori()">Non cliccare qui!</button>
+    <div class="timeline">
+        <div class="timeline-item">
+            <strong>Il nostro Inizio</strong>
+            <p>Tutto è partito quel [Metti Data o Luogo]...</p>
+        </div>
+        <div class="timeline-item">
+            <strong>Il primo "Ti Amo"</strong>
+            <p>Un momento che non dimenticherò mai.</p>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="btn-surprise" onclick="lanciaCuori()">Non cliccare qui!</button>
+    </div>
 
     <footer>
-        <p>Made with &lt;3 by [Il Tuo Nome] | Version 1.0.0-Valentine</p>
+        <p>Designed & Coded with Love by [Tuo Nome] &copy; 2026</p>
     </footer>
 
     <script>
-        // Funzione per i cuori
+        // Funzione Cuori migliorata
         function lanciaCuori() {
-            var scalar = 2;
-            var heart = confetti.shapeFromText({ text: '❤️', scalar });
+            if (typeof confetti === 'undefined') {
+                console.error("Libreria non caricata");
+                return;
+            }
 
-            var defaults = {
-                spread: 360,
-                ticks: 100,
-                gravity: 0.5,
-                decay: 0.94,
-                startVelocity: 30,
-                shapes: [heart],
-                scalar
-            };
+            var duration = 4 * 1000;
+            var end = Date.now() + duration;
 
-            confetti({
-                ...defaults,
-                particleCount: 50
-            });
+            (function frame() {
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ff4d6d', '#ffb3c1']
+                });
+                confetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ff4d6d', '#ffb3c1']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
         }
 
-        // Calcolo automatico dei giorni
-        const dataInizio = new Date('2023-05-15'); // <--- METTI LA VOSTRA DATA QUI (AAAA-MM-GG)
+        // Calcolo Giorni (Sostituisci la data qui sotto!)
+        const dataInizio = new Date('2023-05-20'); 
         const oggi = new Date();
-        const diffTime = Math.abs(oggi - dataInizio);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const diffDays = Math.floor((oggi - dataInizio) / (1000 * 60 * 60 * 24));
         document.getElementById('days-together').innerText = diffDays;
     </script>
 </body>
